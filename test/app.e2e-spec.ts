@@ -1,9 +1,11 @@
 import { Test } from '@nestjs/testing';
 import { AppModule } from '../src/app.module';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 describe('App e2e', () => {
   let app: INestApplication;
+  let prisma: PrismaService;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -16,12 +18,30 @@ describe('App e2e', () => {
       }),
     );
     await app.init();
+
+    prisma = app.get(PrismaService);
+    await prisma.cleanDb();
   });
 
   afterAll(() => {
     app.close();
   });
 
-  it.todo('should pass');
-  it.todo('should pass 2');
+  describe('Auth', () => {
+    describe('Signup', () => {});
+    describe('Signin', () => {});
+  });
+
+  describe('User', () => {
+    describe('Get me', () => {});
+    describe('Edit user', () => {});
+  });
+
+  describe('Bookmarks', () => {
+    describe('Create bookmarks', () => {});
+    describe('Get bookmarks', () => {});
+    describe('Get bookmark by id', () => {});
+    describe('Edit bookmark', () => {});
+    describe('Delete bookmark', () => {});
+  });
 });
